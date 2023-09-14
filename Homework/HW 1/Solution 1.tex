@@ -1,0 +1,203 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{authblk}
+
+% 习惯最小的题号用自定义的id命令直接打出来
+\newcommand{\id}{\subsubsection*}
+\newcommand{\fc}{\frac}
+
+\usepackage{geometry}
+% 纸张尺寸大小
+% 也可以手动写 left, right, top, bottom 参数
+\geometry{a4paper, scale = 0.9}
+%\geometry{left = 2.54cm, right = 2.54cm, top = 3.17cm, bottom = 3.17cm}
+
+\usepackage{indentfirst}
+\renewcommand{\baselinestretch}{1.2}
+
+
+%TODO: Title
+\title{MA234 Homework 1}
+
+%TODO: Author
+\author{Duolei WANG, SID:12012727}
+\affil{wangdl2020@mail.sustech.edu.cn}
+
+%TODO: Date
+\date{}
+
+%TODO: Main document
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item[1.] Note the function by \(f(c)\). Prove it by the following steps.
+\begin{enumerate}
+    \item Step 1. Claim that \(x_1 \le c \le x_{2n - 1}\). 
+    
+    Otherwise, without loss of generality, if \(c < x_1\), let \(c' = x_1\), we have
+    \[f(c') = \sum_{i = 1}^{2n - 1} (x_i - c') < f(c)\]
+
+    Thus, the result of the optimation with the form must lies on the interval \([x_{lhs}, x_{rhs}]\).
+
+    \item Step 2. After Step 1. Limit \(c \in [x_1, x_{2n - 1}]\).  One can note that
+    \[c^* = \arg \min_c \sum_{i = 2}^{2n - 2}|x_i - c|\]
+    
+    because the summary of \(|x_1 - c| + |x_{2n - 1} - c| = x_{2n - 1} - x_1\) is a constant, when \(c \in [x_1, x_{2n - 1}]\) in every iteration. 
+    
+    Thus, delete two terminal points will not cause the result. And this procession can be continued, the terminal two points will be deleted from \(\{x_1, \ldots x_{2n - 1}\}\).
+    \item Step 3. Iterate this proccession, until
+    \[c^* = \arg \min_c |x_n - c| = x_n\]
+\end{enumerate} 
+
+
+\item[2.]
+
+\begin{enumerate}
+    \item[(1)] (E)
+    \item[(2)] Considering
+    
+    \[P(X = 1 | W = 2) = \int_{X = 1}p_{w = 2}(x)dx = 0\]
+
+
+    \item[(3)] When \(w = 2\) is given, considering
+    \[p_{w = 2}(1) = p(1) = \frac{1}{2}\]
+\end{enumerate}
+
+\item[3.]
+\begin{enumerate}
+    \item[(1)] Considering that
+    \begin{align*}
+        E_X[E(Y | X)] &= \int_{X}E(Y | X)p_X(x) dx\\
+        &= \int_{X} p_X(x) \int_{Y} y p(y | X = x) dy dx\\
+        &= \int_{X} \int_{Y} p_X(x) y p(y | X = x)dydx\\
+        &= \int_{X} \int_{Y} y p(x, y)dydx\\
+        &= \int_{Y} y \int_{X} p(x, y) dxdy\\
+        &= \int_{Y} y p_Y(y) dy\\
+        &= E_Y(y)\\
+    \end{align*}
+    \item[(2)] If X and Y are independent, then \(p(x, y) = p_x(x)p_y(y)\), substitute the equation into the definition, we derive
+    \[E(Y | X = x) = \frac{\int_{\mathcal Y}y p_x(x)p_y(y)}{p_x(x)} = \int_{\mathcal Y} y p_y(x) = E(Y)\]
+    \item[(3)] Define \(f(c) = E[{(Y - c)}^2 | X = x] = \int_Y {(y - c)}^2 p(y | X = x) dy\). Considering the minimum of \(f\), we get
+    \[f'(c) = 2\int_Y (c - y) p(y | X = x)dy\]
+    For a given \(x\), \(f'(x)\) is clearly increasing, thus has the minimum at \(f'(c^*) = 0\), which means
+    \[\int_Y (c^* - y) p(y | X = x)dy = 0 \iff E[(c^* - y) | X = x] = 0\]
+    Thus
+    \[c^* = E[c^* | X = x] = E[y | X = x]\]
+\end{enumerate}
+
+\item[4.]
+    \begin{enumerate}
+        \item Positivity difinite.
+        
+        The positivity is trivial, considering \(J(A, B) = 0\), which implies \(|A \Delta B| = 0\). Thus \(A = B\).
+
+        \item Symmetric. Considering the symmetric of \(\Delta\), it's trivial.
+        
+        \item 
+        \begin{itemize}
+            \item 
+            Firstly, if there exist infinite set in \(A, B\). Considering only one is infinite, without loss generality, assume \(A\) is infinite. Then
+            \[J(A, B) = 0, J(A, C) = 0\]
+    
+            And \(J(B, C) \ge 0\) is clearly. Then, if \(A, B\) are both infinite, then 
+            
+            \[J(A, B) = 0 = J(B, C) + J(A, C)\]
+    
+            Then, if \(|C| = \infty\), it's also clearly that
+            \[J(A, B) \le 1 < 2 = J(A, C) + J(B, C)\]
+            \item 
+            Then, in the case that \(A, B, C\) are all finite set. Then we define an arbitary order \(\le\) in \(X = A \cup B\), and list all the elements in \(X\) in the order like \((x_1, x_2, \ldots, x_n)\), with \(x_i \le x_{i + 1}\). 
+
+            Define 
+            \[S_X(A) := String_X(A) = (a_1, a_2, \ldots, a_n),\ a_i := \mathcal X_{A} (a_i)\]
+
+            And \(L_X(A) = \sum_{i = 1}^n a_i\), it's clearly \(L_X(X) = |X|\). 
+
+            And \(|A \Delta B|\) is the number of different coordinates of \(S_X(A), S_X(B)\), which also can be written as \(L_X(S(A) \oplus S(B))\), where the notation \(\oplus\) is XOR.
+            \item 
+            Then, it's clearly that \(J(A, B) = \frac{|A \Delta B|}{|X|}\). Note \(C_X = C \cap X\), firstly, we prove that
+
+            \[J(A, B) = \frac{|A \Delta B|}{|A \cup B|} = \frac{L_X(A \Delta B)}{L_X(X)} \le \frac{L_X(A \Delta C_X) + L_X(B \Delta C_X)}{L_X(X)}\]
+
+            Which can be easily checked as the property of XOR.\@ Considering any digit of \(A, B\), it satisfies
+
+            \[a_i \oplus b_i \le a_i \oplus c_i + b_i \oplus c_i\]
+
+            Thus, the inequality holds.
+    
+            Then, use the Sugarwater Inequality, we can prove that
+            \[\frac{L_{X}(A \Delta C)}{L_X(X)} = \frac{L_X(A \Delta C_X)}{L_X(X)} \le \frac{L_Y(A \Delta C_X) + L_Y(C_Y)}{L_X(X) + L_Y(C)} = \frac{L_Y(A \Delta C_Y)}{L_Y(Y)} = J(A, C)\]
+            Here, \(Y = A \cup C,\ C_Y = C \cap Y\). 
+            
+            The last equality is because of \(L_X(X) = L_Y(X)\) as \(X \cap Y = X,\ X \cup C = Y \implies X \cup (C \cap Y) = Y\).
+
+            Thus 
+            \[J(A, B) \le J(A, C) + J(B, C)\]
+        \end{itemize}
+        
+        Above all has shown that
+        \[J(A, B) \le J(A, C) + J(B, C)\]
+
+    \end{enumerate}
+
+
+\item[5.] 
+    \begin{enumerate}
+        \item[(1)] Considering the \(f(x)\) is learnt by the 1-NN, we know that 
+        \[f(x) = y_c,\quad c = \arg\min_k d(x, x_k)\]
+        It's clearly that, in the sample points, \(f(x_i) = y_i\). Thus
+        \[L(f(X), Y) = E[\frac 1 n \sum_{k = 1}^n {(y_k - y_k)}^2] = 0\]
+
+        \item[(2)] Use the Algorithm Zero, we can derive the error as
+        \begin{align*}
+            L(f(X), Y) &= \frac 1 n E(\sum_{k = 1}^n y_k^2)\\
+            &= \frac 1 n \sum_{k = 1}^n E(y_k^2)\\
+            &= E(\Gamma(1/2, 8))\\
+            &= \frac{\Gamma(\frac 1 2 + 2)}{8^2\Gamma(\frac 1 2)}\\
+            &= \frac{3}{256}\\
+        \end{align*}
+    \end{enumerate}
+
+    Before calculate the error of leave-one-out of a given algorithm, we firstly calculate the formular of it. Note \(p(k)\) as the \(x_k\) is left as the validation subset.
+
+    \begin{align*}
+        E &= \sum_{k = 1}p(k){{(y_k - f(x_k))}^2}\\
+        &= \frac 1 N \sum_{k = 1}^N {{(y_k - f(x_k))}^2}\\
+    \end{align*}
+
+    \begin{enumerate}
+        \item[(3)] 1-NN method. 
+        
+        Firstly, one can notice that whether the \(f(x_i)\) is, it's an independent variable with the same normal distribution \(N(0, 2^2)\). Thus, the expectation loss at a point is actually 
+        \[E[L(y_i, f(x_i))] = E[(y_i - y_i')^2] = E(y_i^2) + E(y_i'^2) - 2E(y_i)E(y_i') = 2E(y_i^2),\ y_i \sim N(0, 2^2)\]
+        
+        Thus,
+
+        \begin{align*}
+            E[\frac{1}{N}L(y_i, f(x_i))] 
+            &= \frac 1 N E[\sum_{k = 1}^N [y_k - f(y_k)]^2]\\
+            &= \frac 1 N \sum_{k = 1}^N\{E[y_k^2] + E[f^2(x_k)]\},\quad y_k/2,\ f(x_k)/2 \sim N(0, 2^2)\\
+            &= E[\Gamma(1, 8)] = \frac 1 8\\
+        \end{align*}
+
+        Here, the last equality because there are $N$ numbers variables Gamma distribution.
+        \item[(4)] Zero function.
+        
+        Similar with (3), we can derive 
+        \begin{align*}
+            E &= E[\frac 1 N \sum_{k = 1}^N y_k^2]\\
+            &= E[\Gamma(1/2, 8)]\\
+            &= \frac 1 {16}\\
+        \end{align*}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
